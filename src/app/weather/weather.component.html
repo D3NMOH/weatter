@@ -1,0 +1,443 @@
+<style>
+  .page {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    box-sizing: border-box;
+    gap: 20px;
+    align-items: center;
+    /* justify-content: center; */
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    grid-template-areas:
+      "smallWeather mediumWeather mediumWeather"
+      "largeWeather largeWeather largeWeather";
+    transition: all 0.3s;
+  }
+  .smallWeather {
+    grid-area: smallWeather;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #39b3ff;
+    background-size: cover;
+    background-position: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 25px;
+    color: #fff;
+    box-shadow: var(--shadows);
+    overflow: hidden;
+    .temperature {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      margin: 0;
+      filter: drop-shadow(1px 1px 1px #000);
+    }
+    .city {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      margin: 0;
+      align-self: flex-end;
+      justify-self: right;
+      filter: drop-shadow(1px 1px 1px #000);
+    }
+    .weatherIcon {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      filter: drop-shadow(1px 1px 1px #000);
+    }
+  }
+
+  .mediumWeather {
+    grid-area: mediumWeather;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    background-color: #39b3ff;
+    background-size: cover;
+    background-position: center;
+    width: 620px;
+    height: 300px;
+    /* padding: 20px; */
+    border-radius: 25px;
+    box-shadow: var(--shadows);
+    color: #fff;
+    overflow: hidden;
+  }
+  .largeWeather {
+    grid-area: largeWeather;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #39b3ff;
+    background-size: cover;
+    background-position: center;
+    width: 940px;
+    height: 300px;
+    border-radius: 25px;
+    text-shadow: 1px 1px 1px #000;
+    box-shadow: var(--shadows);
+    color: #fff;
+    overflow: hidden;
+  }
+  .temperature {
+    font-size: 60px;
+    font-weight: 900;
+  }
+  .city {
+    font-size: 18px;
+  }
+  .weatherIcon {
+    font-size: 45px;
+  }
+  .forecastIcon {
+    font-size: 30px;
+    padding-top: 20px;
+  }
+  .graph {
+    padding-top: 20px;
+    width: 100%;
+    height: calc(100% - 20px);
+    position: absolute;
+    top: 0;
+    background: #000000aa;
+  }
+  .weatherConditions {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: space-around;
+    align-content: space-around;
+    font-size: 23px;
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 3px #000;
+    text-align: left;
+  }
+  .weather {
+    width: 100%;
+    height: 100%;
+  }
+  .col {
+    display: flex;
+    flex-direction: row;
+    background-color: #00000088;
+    gap: 10px;
+    border-radius: 14px;
+    width: 260px;
+    height: 260px;
+  }
+  .col1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000aa;
+    padding: 0 15px;
+    border-radius: 14px;
+  }
+  .col2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 15px;
+    border-radius: 14px;
+  }
+  .weatherName {
+    font-size: 20px;
+    align-self: flex-start;
+    margin-left: 20px;
+    text-transform: uppercase;
+    filter: drop-shadow(1px 1px 1px #000);
+  }
+  .forecastList {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: scroll;
+    padding: 20px;
+    scrollbar-width: none;
+  }
+  .forecastItem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: #00000088;
+    border-radius: 14px;
+    height: 260px;
+  }
+  .forecastDetail {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .forecastInfo {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+  }
+  @media screen and (max-width: 950px) {
+    .mediumWeather {
+      width: 300px;
+      height: 620px;
+    }
+    .largeWeather {
+      width: 300px;
+      height: 300px;
+    }
+    .weatherConditions {
+      flex-direction: column;
+    }
+    .page {
+      grid-template-areas: "smallWeather mediumWeather" "largeWeather mediumWeather";
+    }
+    .col {
+      height: 270px;
+    }
+  }
+  @media screen and (max-width: 650px) {
+    .page {
+      grid-template-areas: "smallWeather" "mediumWeather" "largeWeather";
+      width: 100vw;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      gap: 0px;
+    }
+    .largeWeather {
+      border-radius: unset;
+      width: 100vw;
+    }
+    .mediumWeather {
+      border-radius: unset;
+      width: 100vw;
+    }
+    .smallWeather {
+      border-radius: unset;
+      width: 100vw;
+    }
+    .col {
+      width: calc(100vw - 40px);
+      margin: 0 10px;
+    }
+  }
+</style>
+
+<div class="page">
+  <div
+    [style.background-image]="
+      weatherCondition === '02d' || weatherCondition === '02n'
+        ? 'url(../assets/sommer-few-clouds.jpg)'
+        : weatherCondition === '11d' || weatherCondition === '11n'
+        ? 'url(../assets/sommer-thunderstorm.jpg)'
+        : weatherCondition === '01d' || weatherCondition === '01n'
+        ? 'url(../assets/sommer-clear-sky.jpg)'
+        : weatherCondition === '03d' || weatherCondition === '03n'
+        ? 'url(../assets/sommer-scattered-clouds.jpg)'
+        : weatherCondition === '04d' || weatherCondition === '04n'
+        ? 'url(../assets/sommer-broken-clouds.jpg)'
+        : weatherCondition === '09d' || weatherCondition === '09n'
+        ? 'url(../assets/sommer-shower-rain.jpg)'
+        : weatherCondition === '10d' || weatherCondition === '10n'
+        ? 'url(../assets/sommer-rain.jpg)'
+        : weatherCondition === '13d' || weatherCondition === '13n'
+        ? 'url(../assets/sommer-snow.jpg)'
+        : weatherCondition === '50d' || weatherCondition === '50n'
+        ? 'url(../assets/sommer-mist.jpg)'
+        : ''
+    "
+    class="smallWeather"
+  >
+    <div class="temperature">
+      {{ weatherTemp }}{{ weatherTemp && "°C" }}
+      <div class="{{ !weatherTemp ? 'loader' : null }}"></div>
+    </div>
+    <!-- <img
+      src="https://openweathermap.org/img/wn/{{ weatherCondition }}@2x.png"
+      alt="{{ weatherDesc }}"
+      class="weatherIcon"
+    /> -->
+    <i
+      [class]="
+        weatherCondition === '02d' || weatherCondition === '02n'
+          ? 'weatherIcon fa-solid fa-cloud-sun'
+          : weatherCondition === '11d' || weatherCondition === '11n'
+          ? 'weatherIcon fa-solid fa-cloud-bolt'
+          : weatherCondition === '01d' || weatherCondition === '01n'
+          ? 'weatherIcon fa-solid fa-sun'
+          : weatherCondition === '03d' || weatherCondition === '03n'
+          ? 'weatherIcon fa-solid fa-cloud'
+          : weatherCondition === '04d' || weatherCondition === '04n'
+          ? 'weatherIcon fa-solid fa-cloud'
+          : weatherCondition === '09d' || weatherCondition === '09n'
+          ? 'weatherIcon fa-solid fa-cloud-showers-heavy'
+          : weatherCondition === '10d' || weatherCondition === '10n'
+          ? 'weatherIcon fa-solid fa-cloud-rain'
+          : weatherCondition === '13d' || weatherCondition === '13n'
+          ? 'weatherIcon fa-solid fa-snowflake'
+          : weatherCondition === '50d' || weatherCondition === '50n'
+          ? 'weatherIcon fa-solid fa-bars-staggered'
+          : ''
+      "
+    ></i>
+    <p class="weatherName">{{ weatherDesc }}</p>
+    <p class="city">
+      <i class="fa-solid {{ weatherCity && 'fa-location-dot' }}"></i>
+      {{ weatherCity && weatherCity + "," }}
+      {{ weatherCountry && weatherCountry }}
+    </p>
+  </div>
+  <div
+    class="mediumWeather"
+    [style.background-image]="
+      weatherCondition === '02d' || weatherCondition === '02n'
+        ? 'url(../assets/sommer-few-clouds.jpg)'
+        : weatherCondition === '11d' || weatherCondition === '11n'
+        ? 'url(../assets/sommer-thunderstorm.jpg)'
+        : weatherCondition === '01d' || weatherCondition === '01n'
+        ? 'url(../assets/sommer-clear-sky.jpg)'
+        : weatherCondition === '03d' || weatherCondition === '03n'
+        ? 'url(../assets/sommer-scattered-clouds.jpg)'
+        : weatherCondition === '04d' || weatherCondition === '04n'
+        ? 'url(../assets/sommer-broken-clouds.jpg)'
+        : weatherCondition === '09d' || weatherCondition === '09n'
+        ? 'url(../assets/sommer-shower-rain.jpg)'
+        : weatherCondition === '10d' || weatherCondition === '10n'
+        ? 'url(../assets/sommer-rain.jpg)'
+        : weatherCondition === '13d' || weatherCondition === '13n'
+        ? 'url(../assets/sommer-snow.jpg)'
+        : weatherCondition === '50d' || weatherCondition === '50n'
+        ? 'url(../assets/sommer-mist.jpg)'
+        : ''
+    "
+  >
+    <div class="weatherConditions">
+      <div class="col">
+        <div class="col1">
+          <p><i class="fa-solid fa-temperature-high"></i></p>
+          <p><i class="fa-solid fa-temperature-low"></i></p>
+          <p><i class="fa-solid fa-arrows-down-to-line"></i></p>
+        </div>
+        <div class="col2">
+          <p>{{ weatherMaxTemp && weatherMaxTemp + "°C" }}</p>
+          <p>{{ weatherMinTemp && weatherMinTemp + "°C" }}</p>
+          <p>{{ weatherPressure && weatherPressure + " hPa" }}</p>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col1">
+          <p><i class="fa-solid fa-droplet"></i></p>
+          <p><i class="fa-solid fa-wind"></i></p>
+          <p><i class="fa-solid fa-eye"></i></p>
+        </div>
+        <div class="col2">
+          <p>{{ weatherHumidity && weatherHumidity + " %" }}</p>
+          <p>{{ weatherWind && weatherWind + " m/s" }}</p>
+          <p>{{ weatherVisibility && weatherVisibility + " m" }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="largeWeather"
+    [style.background-image]="
+      weatherCondition === '02d' || weatherCondition === '02n'
+        ? 'url(../assets/sommer-few-clouds.jpg)'
+        : weatherCondition === '11d' || weatherCondition === '11n'
+        ? 'url(../assets/sommer-thunderstorm.jpg)'
+        : weatherCondition === '01d' || weatherCondition === '01n'
+        ? 'url(../assets/sommer-clear-sky.jpg)'
+        : weatherCondition === '03d' || weatherCondition === '03n'
+        ? 'url(../assets/sommer-scattered-clouds.jpg)'
+        : weatherCondition === '04d' || weatherCondition === '04n'
+        ? 'url(../assets/sommer-broken-clouds.jpg)'
+        : weatherCondition === '09d' || weatherCondition === '09n'
+        ? 'url(../assets/sommer-shower-rain.jpg)'
+        : weatherCondition === '10d' || weatherCondition === '10n'
+        ? 'url(../assets/sommer-rain.jpg)'
+        : weatherCondition === '13d' || weatherCondition === '13n'
+        ? 'url(../assets/sommer-snow.jpg)'
+        : weatherCondition === '50d' || weatherCondition === '50n'
+        ? 'url(../assets/sommer-mist.jpg)'
+        : ''
+    "
+  >
+    <div class="forecastList">
+      <div *ngFor="let item of forecastList" class="forecastItem">
+        <div class="forecastDetail">
+          <i
+            [class]="
+              item.weather[0].icon === '02d' || item.weather[0].icon === '02n'
+                ? 'forecastIcon fa-solid fa-cloud-sun'
+                : item.weather[0].icon === '11d' ||
+                  item.weather[0].icon === '11n'
+                ? 'forecastIcon fa-solid fa-cloud-bolt'
+                : item.weather[0].icon === '01d' ||
+                  item.weather[0].icon === '01n'
+                ? 'forecastIcon fa-solid fa-sun'
+                : item.weather[0].icon === '03d' ||
+                  item.weather[0].icon === '03n'
+                ? 'forecastIcon fa-solid fa-cloud'
+                : item.weather[0].icon === '04d' ||
+                  item.weather[0].icon === '04n'
+                ? 'forecastIcon fa-solid fa-cloud'
+                : item.weather[0].icon === '09d' ||
+                  item.weather[0].icon === '09n'
+                ? 'forecastIcon fa-solid fa-cloud-showers-heavy'
+                : item.weather[0].icon === '10d' ||
+                  item.weather[0].icon === '10n'
+                ? 'forecastIcon fa-solid fa-cloud-rain'
+                : item.weather[0].icon === '13d' ||
+                  item.weather[0].icon === '13n'
+                ? 'forecastIcon fa-solid fa-snowflake'
+                : item.weather[0].icon === '50d' ||
+                  item.weather[0].icon === '50n'
+                ? 'forecastIcon fa-solid fa-bars-staggered'
+                : ''
+            "
+          ></i>
+          <div class="forecastInfo">
+            <div style="justify-self: flex-end">
+              <p>
+                <i class="fa-solid fa-arrow-up"></i>
+                {{ rounded(item.main.temp_max) }}°C
+              </p>
+              <p>
+                <i class="fa-solid fa-arrow-down"></i>
+                {{ rounded(item.main.temp_min) }}°C
+              </p>
+            </div>
+            <div
+              style="line-height: 8px; background-color: #00000088; width: 100%"
+            >
+              <p>{{ formatWeekday(item.dt) }}</p>
+              <p>{{ formatDay(item.dt) }} {{ formatMonth(item.dt) }}</p>
+              <p>{{ formatTime(item.dt) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

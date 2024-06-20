@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  font-family: "Readex Pro", sans-serif;
+  font-optical-sizing: auto;
+  --shadows: 0 10px 40px #00000099, inset 0 0 50px #00000099;
+  scrollbar-width: none;
+}
+body {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 20px 20px 20px 20px;
+}
+@media screen and (max-width: 650px) {
+  body {
+    padding: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #323232;
+  }
+}

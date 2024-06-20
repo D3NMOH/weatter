@@ -1,0 +1,67 @@
+<style>
+  :root {
+  }
+  .root {
+    background-color: #fff;
+  }
+  .logo {
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    z-index: 999;
+    width: 100%;
+  }
+  .logoText {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+    background-clip: text;
+    color: transparent;
+    background-image: linear-gradient(to bottom, #555 40%, #000 70%);
+  }
+  .logoTextAccent {
+    display: inline-block;
+    background-clip: text;
+    background-image: linear-gradient(to bottom, #fff 45%, #eee 60%, #ddd 100%);
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 0px;
+    -webkit-text-stroke-color: black;
+    font-weight: 900;
+    rotate: -25deg;
+    margin-right: -10px;
+    margin-left: -10px;
+    filter: drop-shadow(0 0 3px #000);
+  }
+  @media (prefers-color-scheme: dark) {
+    .root {
+      background-color: #323232;
+    }
+    .logoText {
+      color: transparent;
+      background-clip: text;
+      background-image: linear-gradient(to bottom, #fff 40%, #aaa 70%);
+      /* filter: drop-shadow(0 3px 10px #0000007c); */
+    }
+    .logoTextAccent {
+      background-clip: text;
+      background-image: linear-gradient(to bottom, #555 40%, #000 70%);
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke-width: 0px;
+      -webkit-text-stroke-color: black;
+      filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff);
+    }
+  }
+</style>
+
+<div class="root">
+  <div class="logo">
+    <h1 class="logoText">Wea<span class="logoTextAccent">t</span>ter</h1>
+  </div>
+  <div>
+    <app-weather></app-weather>
+    <router-outlet></router-outlet>
+  </div>
+</div>
